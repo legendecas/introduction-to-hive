@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+  <title>Big</title>
+  <link href='big.css' rel='stylesheet' type='text/css' />
+  <link href='highlight.css' rel='stylesheet' type='text/css' />
+  <style>
+    .new-shiny { background: #aaaaaa; }
+  </style>
+  <script src='big.js'></script>
+  <script src='highlight.js'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body class='dark'>
+
+  <div>
+    <div class="title">
+      <em>hive-project</em><br>
+      <em>bootstrap node.js processes</em>
+    </div>
+    <div style="font-size: 0.2em">
+      <span class="supersplit">@</span>legendecas
+    </div>
+  </div>
+
+  <div>
+    <h2 class="title"><span class="bubblegum">Why</span> we want them</h2>
+    <ul>
+      <li>应用冷启动 500ms</li>
+      <li>应用启动消耗较多 CPU 时间</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="title"><span class="bubblegum">What</span> we want</h2>
+    <ul>
+      <li>更快的应用第一响应速度</li>
+      <li>更低的应用启动 CPU 占用</li>
+      <li>更快的设备启动速度</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="title">What happens on <span class="bubblegum">launch</span></h2>
+
+    <ul>
+      <li>fork 创建新进程，exec 二进制可执行文件</li>
+      <li>解析参数</li>
+      <li>uv_loop_init</li>
+      <li>jerry_init</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="title">What happens on <span class="bubblegum">launch</span></h2>
+
+    <ul>
+      <li>jerry_init</li>
+      <li>初始化 jerry context</li>
+      <li>初始化 heap</li>
+      <li>初始化 JS task queue</li>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="title">What happens on <span class="bubblegum">launch</span></h2>
+
+    <ul>
+      <li>解析 JS entry script</li>
+      <li>运行 entry script 字节码</li>
+      <li>解析 require 依赖</li>
+      <li>运行 require 依赖字节码</li>
+    </ul>
+  </div>
+
+
+  <div>
+    <h2 class="title">Launch with <span class="bubblegum">hive</span></h2>
+
+    <ul>
+      <li>fork 创建新进程</li>
+      <li>reinit after fork</li>
+      <li>uv_loop_fork</li>
+      <li>重新初始化 JS task queue</li>
+    </ul>
+  </div>
+
+
+  <div>
+    <h2 class="title">Launch with <span class="bubblegum">hive</span></h2>
+
+    <ul>
+      <li>解析 JS entry script</li>
+      <li>运行 entry script 字节码</li>
+      <li>使用缓存的 require 依赖解析结果</li>
+      <li>运行 require 依赖字节码</li>
+    </ul>
+  </div>
+
+
+  <div>
+    <h2 class="title">Benchmark time</h2>
+    <div>
+      <span>Node.js</span>
+      <span class="brunchPink">ShadowNode</span>
+      <span>Macbook Pro</span><br>
+      <span class="brunchPink">Rokid Me</span>
+    </div>
+  </div>
+
+  <div>
+    <h2>~70%</h2>
+    estimated speeding up
+  </div>
+
+
+  <div>
+    <pre><code>
+      node benchmark/runner.js (which node)
+      using '/usr/local/bin/node' as runtime...
+      fork-child-process.js n=100: 8.161650194063887ms
+      node-fork-child-process.js n=100: 48.939104724037364ms
+      node-spawn-child-process.js n=100: 44.33652880839394ms
+    </code></pre>
+  </div>
+  <div>
+    <pre><code>
+      node benchmark/runner.js (which iotjs)
+      using '/usr/local/bin/iotjs' as runtime...
+      fork-child-process.js n=100: 2.8637968484439638ms
+      node-fork-child-process.js n=100: 36.56608570031542ms
+      node-spawn-child-process.js n=100: 25.79720607225852ms
+    </code></pre>
+  </div>
+
+
+  <div>
+    <pre><code>
+      cloud-player 500ms
+      30ms  setup process
+      330ms runtime bootstrapping
+      50ms  populating API
+      90ms  loading application codes
+    </code></pre>
+  </div>
+  <div>
+    <pre><code>
+      cloud-player with hive-proc 170ms
+      30ms setup process
+      50ms populating API
+      90ms loading application codes
+    </code></pre>
+  </div>
+
+  <div>Boot with hive</div>
+
+  <div style="background-image: url(./image/15655344533058.png); background-size: cover; width: 100%; height: 100%;">
+
+  </div>
+
+  <div style="background-image: url(./image/15655344616487.png); background-size: cover; width: 100%; height: 100%;">
+
+  </div>
+
+
+  <div>
+    <h2 class="title"><span class="bubblegum">Better</span> than our expect</h2>
+    <ul>
+      <li>应用冷启动第一响应速度~200ms</li>
+      <li>对应用代码没有侵入，应用无感知</li>
+    </ul>
+  </div>
+
+  <div>What's next</div>
+
+  <div>
+    <h2>What's next</h2>
+    <ul>
+      <li>Share built-in objects memory across incubated processes</li>
+    </ul>
+  </div>
+
+
+  <div>
+    Questions?
+  </div>
+
+  <div class="title">
+    <div style="height: 30%" class="bubblegum">
+      Thanks
+    </div>
+    <div style="font-size: 0.2em">
+      <em>@</em>legendecas
+    </div>
+  </div>
+</body>
+</html>
